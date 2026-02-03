@@ -46,3 +46,8 @@ JWT token is generated and returned
 Client sends token in Authorization header
 
 Server validates token for protected routes
+
+Class	            Responsibility
+UserServiceImpl	    Loads user from DB for authentication
+JWTServiceImpl	    Creates and validates JWT tokens
+JwtAuthenticationFilter	Intercepts requests and sets authenticated user in Spring Security
