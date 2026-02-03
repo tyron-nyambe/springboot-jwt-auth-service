@@ -1,6 +1,7 @@
 package com.lumara.springsecurity.services.impl;
 
 
+import com.lumara.springsecurity.services.JWTService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -24,11 +25,11 @@ import java.util.function.Function;
 
 //This class is responsible for creating signed JWT tokens and later verifying and extracting user
 // information from those tokens using a secret key.
-public class JWTServiceImpl {
+public class JWTServiceImpl implements JWTService {
 
 
     //Creates a JWT token for a logged-in user.
-    private String generateToken(UserDetails userDetails)
+    public String generateToken(UserDetails userDetails)
     {
         return Jwts.builder().setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -66,4 +67,14 @@ public class JWTServiceImpl {
     }
 
 
+    //Token is valid if username inside token matches DB user & token is not expired.
+    public boolean isTokenValid(String token, UserDetails userDetails){
+        final String userName = extractUsername(token);
+        return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token)
+    {
+        return extractClaim(token,Claims::getExpiration).before(new Date());
+    }
 }
