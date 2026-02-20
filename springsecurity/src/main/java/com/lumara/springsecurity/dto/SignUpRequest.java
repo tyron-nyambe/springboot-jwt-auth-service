@@ -2,7 +2,7 @@ package com.lumara.springsecurity.dto;
 
 import lombok.Data;
 
-@Data
+@Data //For getters and setters
 public class SignUpRequest {
 
     private String firstName;
