@@ -1,5 +1,7 @@
 package com.lumara.springsecurity.controller;
 
+import com.lumara.springsecurity.dto.JwtAuthenticationResponse;
+import com.lumara.springsecurity.dto.SignInRequest;
 import com.lumara.springsecurity.dto.SignUpRequest;
 import com.lumara.springsecurity.entities.User;
 import com.lumara.springsecurity.services.AuthenticationService;
@@ -22,5 +24,10 @@ public class AuthenticationController {
     public ResponseEntity<User> signup(@RequestBody SignUpRequest signUpRequest)
     {
         return ResponseEntity.ok(authenticationService.signUp(signUpRequest));
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SignInRequest signInRequest){
+        return ResponseEntity.ok(authenticationService.signIn(signInRequest));
     }
 }
