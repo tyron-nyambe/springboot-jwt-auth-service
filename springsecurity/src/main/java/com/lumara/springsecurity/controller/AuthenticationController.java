@@ -1,6 +1,7 @@
 package com.lumara.springsecurity.controller;
 
 import com.lumara.springsecurity.dto.JwtAuthenticationResponse;
+import com.lumara.springsecurity.dto.RefreshTokenRequest;
 import com.lumara.springsecurity.dto.SignInRequest;
 import com.lumara.springsecurity.dto.SignUpRequest;
 import com.lumara.springsecurity.entities.User;
@@ -30,4 +31,11 @@ public class AuthenticationController {
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SignInRequest signInRequest){
         return ResponseEntity.ok(authenticationService.signIn(signInRequest));
     }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtAuthenticationResponse> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest){
+        return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
+    }
+
+
 }
