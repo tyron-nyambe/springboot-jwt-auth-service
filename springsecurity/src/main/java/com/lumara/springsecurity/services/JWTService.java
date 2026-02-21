@@ -1,6 +1,10 @@
 package com.lumara.springsecurity.services;
 
+import com.lumara.springsecurity.entities.User;
 import org.springframework.security.core.userdetails.UserDetails;
+
+
+import java.util.Map;
 
 public interface JWTService {
 
@@ -9,4 +13,7 @@ public interface JWTService {
     String generateToken(UserDetails userDetails);
 
     boolean isTokenValid(String token, UserDetails userDetails);
+
+    String generateRefreshToken(Map<String, Object> extraClaims, UserDetails userDetails);
+
 }
